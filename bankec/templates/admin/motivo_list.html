@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    admin dash LIST
+{% endblock %}
+
+{% block content %}
+
+    <body class="bg-gray-300 min-h-screen">
+
+        <div class="max-w-7xl mx-auto py-12 px-6 sm:px-12 ">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between">
+                    <h2 class="text-3xl font-semibold text-gray-800">Lista de Motivos</h2>
+                    <a href="{% url 'usuario:motivo_create' %}" class=" bg-blue-600 text-white py-4 px-2 rounded-lg hover:bg-blue-700 focus:ring focus:ring-blue-300">Crear Motivo</a>
+                </div>
+
+                <div class="overflow-x-auto px-6 py-4 ">
+                    <table class="min-w-full table-auto border-collapse">
+                        <thead class="bg-gray-400">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">ID</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Nombre</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-300">
+                            {% for motivo in motivos %}
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ motivo.id }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ motivo.titulo }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">
+                                        <a href="{% url 'usuario:motivo_edit' motivo.id %}">Editar</a> |
+                                        <a href="{% url 'usuario:motivo_delete' motivo.id %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="px-6 py-4">
+                    <a href="{% url 'usuario:admin_dashboard' %}" class="text-blue-600 hover:underline">Volver al Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </body>
+
+{% endblock %}

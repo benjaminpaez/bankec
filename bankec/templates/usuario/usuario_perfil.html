@@ -1,0 +1,120 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Perfil
+{% endblock %}
+
+{% block content %}
+{#	<h1>Bienvenido a tu perfil {{ user.username }}.</h1>#}
+{#    <a href="{% url 'usuario:logout' %}">Cerrar sesion</a>#}
+{#    <form  method="post">#}
+{#        <button type="submit">Cerrar sesion</button>#}
+{#    </form>#}
+{#    <h1 class="text-2xl font-bold">Bienvenido, {{ user.first_name }}</h1>#}
+{#    <p>Saldo actual: <strong>${{ request.user.balance }}</strong></p>#}
+{##}
+{#    <a href="{% url 'usuario:cargar_dinero' %}">Cargar Dinero</a>#}
+{#    <a href="{% url 'transferencia:transfer' %}" class="btn btn-primary">Transferir dinero</a>#}
+{#    <a href="{% url 'transferencia:transfer_history' %}" class="btn btn-secondary">Historial</a>#}
+
+    <body class="bg-gray-200 font-sans">
+
+    <div class="flex min-h-screen">
+
+        <aside class="w-64 bg-blue-900 text-white flex flex-col">
+            <div class="py-4 px-6 text-center bg-blue-800">
+                <h1 class="text-2xl font-bold">Mi Cuenta</h1>
+            </div>
+            <nav class="flex-1 px-4 py-6">
+                <ul class="space-y-4">
+                    <li>
+                        <a href="{% url 'transferencia:transfer_history' %}" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
+                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                            Historial de Transferencias
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'transferencia:transfer_history' %}" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
+                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v2a2 2 0 002 2h2a2 2 0 002-2v-2m1-4H7a1 1 0 00-1 1v1a1 1 0 001 1h10a1 1 0 001-1v-1a1 1 0 00-1-1z" />
+                            </svg>
+                            Últimos Movimientos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
+                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4M7 6h10M7 10h6" />
+                            </svg>
+                            Configuración de Cuenta
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="flex-1 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-gray-800">Panel de Usuario</h2>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-600">Balance Actual: <strong>$ {{ user.balance }}</strong></span>
+                        <span class="text-gray-600">Cuenta: <strong>{{ user.username }}</strong></span>
+                        <a href="{% url 'usuario:logout' %}" class="px-4 py-2 bg-red-500 text-white text-sm rounded hover:bg-red-600">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1 bg-gray-50">
+                <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">Resumen de la Cuenta</h3>
+                            <div class="space-x-4">
+                                <a href="{% url 'transferencia:transfer' %}" class="px-4 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">Transferir Dinero</a>
+                                <a href="{% url 'usuario:cargar_dinero' %}" class="px-4 py-2 bg-green-500 text-white text-sm rounded hover:bg-green-600">Ingresar Dinero</a>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-gray-600">
+                            <p class="text-3xl text-bold ">$ {{ user.balance }}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-lg font-medium text-gray-800 mb-4">Últimos Movimientos</h3>
+                        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                        <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
+                            <thead class="bg-gray-200">
+                                <tr>
+                                    <th class="px-4 py-2 text-left">Fecha</th>
+                                    <th class="px-4 py-2 text-left">Tipo</th>
+                                    <th class="px-4 py-2 text-left">Monto</th>
+                                    <th class="px-4 py-2 text-left">Descripción</th>
+                                </tr>
+                            </thead>
+{#                            -----CORREGIR LISTA----#}
+                            <tbody>
+                                {% for movimiento in movimientos %}
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="px-4 py-2">{{ movimiento.fecha }}</td>
+                                        <td class="px-4 py-2">{{ movimiento.tipo }}</td>
+                                        <td class="px-4 py-2">
+                                            $ {{ movimiento.monto }}
+                                        </td>
+                                        <td class="px-4 py-2">{{ movimiento.descripcion }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+    </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</body>
+{% endblock %}

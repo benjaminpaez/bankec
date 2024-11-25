@@ -1,0 +1,11 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    ACTUALIZAR Perfil
+{% endblock %}
+
+{% block content %}
+	<h1>Bienvenido a tu perfil {{ user.username }}.</h1>
+    {{ form.as_p }}
+    <a href="{% url 'usuario:logout' %}">Cerrar sesion
+{% endblock %}

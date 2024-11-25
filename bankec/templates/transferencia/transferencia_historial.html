@@ -1,0 +1,41 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+    <a href="{% url 'usuario:dashboard' %}" class="ml-4 my-8 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300">Volver al inicio</a>
+    <body class="bg-gray-300 min-h-screen flex items-center justify-center">
+        <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+            <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Historial de Transferencias</h2>
+            <div class="overflow-x-auto">
+                <table class="bg-slate-300 w-full border-collapse border border-gray-200">
+                    <thead>
+                        <tr class="bg-blue-600 text-white text-left">
+                            <th class="py-2 px-4 border border-gray-200">Fecha</th>
+                            <th class="py-2 px-4 border border-gray-200">Emisor</th>
+                            <th class="py-2 px-4 border border-gray-200">Receptor</th>
+                            <th class="py-2 px-4 border border-gray-200">Monto</th>
+                            <th class="py-2 px-4 border border-gray-200">Motivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transferencia in transferencias %}
+                        <tr class="hover:bg-gray-100">
+                            <td class="py-2 px-4 border border-gray-200">{{ transferencia.timestamp|date:"d/m/Y H:i" }}</td>
+                            <td class="py-2 px-4 border border-gray-200">{{ transferencia.emisor.username }}</td>
+                            <td class="py-2 px-4 border border-gray-200">{{ transferencia.receptor.username }}</td>
+                            <td class="py-2 px-4 border border-gray-200 text-right">${{ transferencia.cantidad }}</td>
+                            <td class="py-2 px-4 border border-gray-200">{{ transferencia.motivo.titulo }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="py-4 text-center text-gray-500">
+                                No hay transferencias registradas.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </body>
+{% endblock %}

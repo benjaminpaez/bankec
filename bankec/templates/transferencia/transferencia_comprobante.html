@@ -1,0 +1,38 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <body class="bg-gray-300 flex items-center justify-center min-h-screen">
+        <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+            <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Comprobante de Transferencia</h2>
+            <div class="space-y-4">
+                <p class="text-gray-700">
+                    <span class="font-bold">Emisor:</span> {{ transferencia.emisor.username }}
+                </p>
+                <p class="text-gray-700">
+                    <span class="font-bold">Receptor:</span> {{ transferencia.receptor.username }}
+                </p>
+                <p class="text-gray-700">
+                    <span class="font-bold">Monto:</span> {{ transferencia.cantidad }} $
+                </p>
+                <p class="text-gray-700">
+                    <span class="font-bold">Motivo:</span> {{ transferencia.motivo.titulo }}
+                </p>
+                <p class="text-gray-700">
+                    <span class="font-bold">Fecha:</span> {{ transferencia.timestamp|date:"d/m/Y H:i" }}
+                </p>
+            </div>
+            <div class="mt-6 text-center">
+                <button onclick="window.print()"
+                    class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring focus:ring-blue-300">
+                    Imprimir Comprobante
+                </button>
+                <a href="{% url 'usuario:dashboard' %}"
+                    class="ml-4 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300">
+                    Volver al Historial
+                </a>
+            </div>
+        </div>
+    </body>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "layouts/base.html" %}<h2>Realizar Transferencia</h2>
+
+
+{% block content %}
+
+    <body class="bg-gray-600 flex items-center justify-center min-h-screen">
+        <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+            <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Realizar Transferencia</h2>
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                <!-- Campo del Receptor -->
+                <div>
+                    <label for="{{ form.receptor.id_for_label }}" class="block text-sm font-medium text-gray-600">Receptor</label>
+                    {{ form.receptor }}
+                    {% if form.receptor.errors %}
+                        <p class="text-red-500 text-sm mt-1 bg-gray-300 ">{{ form.receptor.errors }}</p>
+                    {% endif %}
+                </div>
+                <!-- Campo de Cantidad -->
+                <div>
+                    <label for="{{ form.cantidad.id_for_label }}" class="block text-sm font-medium text-gray-600">Monto</label>
+                    {{ form.cantidad }}
+                    {% if form.cantidad.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.cantidad.errors }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.motivo.id_for_label }}" class="block text-sm font-medium text-gray-600">Motivo</label>
+                    {{ form.motivo }}
+                    {% if form.motivo.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.motivo.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="flex justify-between">
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:ring focus:ring-blue-300">
+                        Transferir
+                    </button>
+                    <a href="{% url 'usuario:dashboard' %}" class="ml-4 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300">Volver</a>
+
+                </div>
+            </form>
+
+        </div>
+    </body>
+{% endblock %}

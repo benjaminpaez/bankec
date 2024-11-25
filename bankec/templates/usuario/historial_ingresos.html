@@ -1,0 +1,42 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+    <body class="bg-gray-300 min-h-screen">
+
+        <div class="max-w-7xl mx-auto py-12 px-6 sm:px-12 ">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-3xl font-semibold text-gray-800">Historial de Ingreso de Dinero</h2>
+                </div>
+
+                <div class="overflow-x-auto px-6 py-4 ">
+                    <table class="min-w-full table-auto border-collapse">
+                        <thead class="bg-gray-400">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Fecha</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Monto</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Usuario</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-300">
+                            {% for ingreso in historial %}
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ ingreso.fecha|date:"d-m-Y H:i:s" }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">${{ ingreso.monto }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ ingreso.usuario.username }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3" class="px-6 py-4 text-sm text-gray-500 text-center">No se encontraron ingresos registrados.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="px-6 py-4">
+                    <a href="{% url 'usuario:dashboard' %}" class="text-blue-600 hover:underline">Volver al Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </body>
+{% endblock %}
