@@ -1,7 +1,8 @@
 # **BANKEC**
 
 ## **Descripción del Proyecto**
-BANKEC es una aplicación web desarrollada en **Django** para gestionar el intercambio de dinero entre usuarios. Ofrece una experiencia fluida y segura para realizar transferencias, gestionar cuentas y visualizar historiales financieros. Está diseñado para manejar tres tipos de usuarios:
+El nombre BankEc es una combinacion de entre la palabra banco (en ingles), y las dos primeras letras de la empresa Ecom. 
+Es una aplicación web desarrollada en **Django** para gestionar el intercambio de dinero entre usuarios. Ofrece una experiencia fluida y segura para realizar transferencias, gestionar cuentas y visualizar historiales financieros. Está diseñado para manejar tres tipos de usuarios:
 
 - **Usuarios no registrados**:  
   Pueden registrarse en el sistema.
@@ -37,10 +38,6 @@ BANKEC es una aplicación web desarrollada en **Django** para gestionar el inter
 ## **Despliegue**
 
 ### 1. **Crear un Entorno Virtual**
-<<<<<<< HEAD
-Ejecuta el siguiente comando para crear un entorno virtual en la carpeta del proyecto:
-=======
->>>>>>> 233d45f51179a367749cd556e2399d00188c7404
 
 
 ### 2. **Instala dependencias**
