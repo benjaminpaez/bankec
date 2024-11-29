@@ -37,7 +37,10 @@ BANKEC es una aplicación web desarrollada en **Django** para gestionar el inter
 ## **Despliegue**
 
 ### 1. **Crear un Entorno Virtual**
+<<<<<<< HEAD
 Ejecuta el siguiente comando para crear un entorno virtual en la carpeta del proyecto:
+=======
+>>>>>>> 233d45f51179a367749cd556e2399d00188c7404
 
 
 ### 2. **Instala dependencias**
