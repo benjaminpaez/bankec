@@ -1,0 +1,124 @@
+{% extends 'layouts/layout_user.html' %}
+
+{% block title %}
+    Historial de movimientos
+{% endblock %}
+
+
+{% block content %}
+    <main class="bg-gray-300 min-h-screen">
+        <div class="max-w-7xl mx-auto py-12 px-6 sm:px-12 ">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div class="px-6 py-4">
+                    {% if user.is_staff %}
+                        <div class="px-6 py-4">
+                            <a href="{% url 'usuario:admin_dashboard' %}">
+                                <div class="flex gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                                    </svg>
+                                    <p class="text-slate-600 hover:underline font-semibold">Regresar</p>
+                                </div>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="px-6 py-4">
+                            <a href="{% url 'usuario:dashboard' %}" >
+                                <div class="flex gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                                    </svg>
+                                    <p class="text-slate-600 hover:underline font-semibold">Regresar</p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </div>
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-3xl font-semibold text-gray-800">Historial de Movimientos</h2>
+                </div>
+
+                <div class="overflow-x-auto px-6 py-4 ">
+                    <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="px-6 py-3 text-left text-sm font-medium ">Fecha</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium ">Hora</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium ">Tipo</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium ">Saldo</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium ">Comprobante</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            {% for movimiento in movimientos %}
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ movimiento.fecha|date:"d-m-Y" }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ movimiento.fecha|date:"H:i:s" }}</td>
+                                    <td>
+                                        {% if movimiento.tipo == "transferencia_enviada" %}
+                                            <span style="color: red;">
+                                                <div class="flex gap-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                                                    </svg>
+                                                    <p>Transferencia enviada</p>
+                                                </div>
+                                            </span>
+                                        {% elif movimiento.tipo == "transferencia_recibida" %}
+                                            <span style="color: green;">
+                                                <div class="flex gap-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                                                    </svg>
+                                                    <p>Transferencia recibida</p>
+                                                </div>
+                                            </span>
+                                        {% else %}
+                                            <span style="color: green;">
+                                                <div class="flex gap-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                                                    </svg>
+                                                    <p>Ingreso</p>
+                                                </div>
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if movimiento.tipo == "transferencia_enviada" %}
+                                            <span style="color: red;">{{ movimiento.monto }}</span>
+                                        {% else %}
+                                            <span style="color: green;">+{{ movimiento.monto }}</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-gray-700">
+                                        {% if movimiento.referencia_id %}
+                                            <a href="{% url 'transferencia:proof_transfer' pk=movimiento.referencia_id %}" class="btn btn-info btn-sm">
+                                                <div class="flex items-center gap-2">
+                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                                                </svg>
+                                                <p class="text-sm underline">ver detalle</p>
+                                                </div>
+                                            </a>
+                                        {% else %}
+                                            <span class="text-gray-400">Sin comprobante</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3" class="px-6 py-4 text-sm text-gray-500 text-center">No se encontraron ingresos registrados.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% include 'includes/paginator.html' %}
+                </div>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}

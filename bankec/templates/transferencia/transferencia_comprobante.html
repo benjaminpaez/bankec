@@ -1,8 +1,11 @@
-{% extends "layouts/base.html" %}
+{% extends 'layouts/layout_user.html' %}
+
+{% block title %}
+    Comprobante de transferencia
+{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <body class="bg-gray-300 flex items-center justify-center min-h-screen">
+    <main class="bg-[#E8E8E8] flex items-center justify-center h-full">
         <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
             <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Comprobante de Transferencia</h2>
             <div class="space-y-4">
@@ -13,13 +16,16 @@
                     <span class="font-bold">Receptor:</span> {{ transferencia.receptor.username }}
                 </p>
                 <p class="text-gray-700">
-                    <span class="font-bold">Monto:</span> {{ transferencia.cantidad }} $
+                    <span class="font-bold">Monto:</span>$ {{ transferencia.monto }}
                 </p>
                 <p class="text-gray-700">
                     <span class="font-bold">Motivo:</span> {{ transferencia.motivo.titulo }}
                 </p>
                 <p class="text-gray-700">
-                    <span class="font-bold">Fecha:</span> {{ transferencia.timestamp|date:"d/m/Y H:i" }}
+                    <span class="font-bold">Fecha:</span> {{ transferencia.fecha |date:"d/m/Y" }}
+                </p>
+                 <p class="text-gray-700">
+                    <span class="font-bold">Hora:</span> {{ transferencia.fecha |date:"H:i:s" }}
                 </p>
             </div>
             <div class="mt-6 text-center">
@@ -29,10 +35,10 @@
                 </button>
                 <a href="{% url 'usuario:dashboard' %}"
                     class="ml-4 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300">
-                    Volver al Historial
+                    Volver a inicio
                 </a>
             </div>
         </div>
-    </body>
-</div>
+    </main>
+
 {% endblock %}

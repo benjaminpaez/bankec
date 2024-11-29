@@ -1,67 +1,9 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/layout_admin.html' %}
 
-{% block title %}
-    admin dash
-{% endblock %}
 
 {% block content %}
-{#	<h1>Bienvenido a tu perfil {{ user.username }}.</h1>#}
-{#    <a href="{% url 'usuario:logout' %}">Cerrar sesion</a>#}
-{#    <h1>{{ title }}</h1>#}
-{#    <ul>#}
-{#        <li><a href="{% url 'usuario:user_list' %}">Gestionar Usuarios</a></li>#}
-{#        <li><a href="{% url 'usuario:motivo_list' %}">Gestionar Motivos de Transferencia</a></li>#}
-{#    </ul>#}
-
     <body class="bg-gray-100 font-sans">
-
-    <div class="flex min-h-screen">
-
-        <aside class="w-64 bg-blue-900 text-white flex flex-col">
-            <div class="py-4 px-6 text-center bg-blue-800">
-                <h1 class="text-2xl font-bold">Admin Panel</h1>
-            </div>
-            <nav class="flex-1 px-4 py-6">
-                <ul class="space-y-4">
-                    <li>
-                        <a href="{% url 'usuario:user_list' %}" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
-                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V9a2 2 0 00-2-2h-4l-2-2H6a2 2 0 00-2 2v4m16 4v4a2 2 0 01-2 2h-4l-2-2H6a2 2 0 01-2-2v-4m8-3v6m-4-4v4" />
-                            </svg>
-                            Gestionar Usuarios
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'usuario:motivo_list' %}" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
-                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v2a2 2 0 002 2h2a2 2 0 002-2v-2m1-4H7a1 1 0 00-1 1v1a1 1 0 001 1h10a1 1 0 001-1v-1a1 1 0 00-1-1z" />
-                            </svg>
-                            Gestionar Motivos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
-                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a4 4 0 00-4 4v4a4 4 0 004 4h8a4 4 0 004-4v-4a4 4 0 00-4-4H8z" />
-                            </svg>
-                            Configuración
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
         <div class="flex-1 flex flex-col">
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <h2 class="text-xl font-semibold text-gray-800">Dashboard</h2>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-gray-600">Bienvenido, <strong>{{ user.username }}</strong></span>
-                        <a href="{% url 'usuario:logout' %}" class="px-4 py-2 bg-red-500 text-white text-sm rounded hover:bg-red-600">Cerrar Sesión</a>
-                    </div>
-                </div>
-            </header>
-
             <main class="flex-1 bg-gray-50">
                 <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -85,9 +27,5 @@
                 </div>
             </main>
         </div>
-    </div>
-
-</body>
-
-
+    </body>
 {% endblock %}

@@ -1,7 +1,9 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -9,6 +11,9 @@ urlpatterns = [
     path('usuario/', include('apps.usuario.urls')),
     path('transferencia/', include('apps.transferencia.urls')),
     path('motivo/', include('apps.motivo.urls')),
-    path('historial/', include('apps.historial.urls')),
-
+    path('movimientos/', include('apps.movimientos.urls')),
+    path('favoritos/', include('apps.favoritos.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

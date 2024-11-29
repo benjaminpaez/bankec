@@ -1,41 +1,76 @@
-{% extends "layouts/base.html" %}
+{% extends 'layouts/layout_user.html' %}
+
+{% block title %}
+    Historial de transferencias
+{% endblock %}
 
 {% block content %}
-    <a href="{% url 'usuario:dashboard' %}" class="ml-4 my-8 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300">Volver al inicio</a>
-    <body class="bg-gray-300 min-h-screen flex items-center justify-center">
-        <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
-            <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Historial de Transferencias</h2>
-            <div class="overflow-x-auto">
-                <table class="bg-slate-300 w-full border-collapse border border-gray-200">
-                    <thead>
-                        <tr class="bg-blue-600 text-white text-left">
-                            <th class="py-2 px-4 border border-gray-200">Fecha</th>
-                            <th class="py-2 px-4 border border-gray-200">Emisor</th>
-                            <th class="py-2 px-4 border border-gray-200">Receptor</th>
-                            <th class="py-2 px-4 border border-gray-200">Monto</th>
-                            <th class="py-2 px-4 border border-gray-200">Motivo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for transferencia in transferencias %}
-                        <tr class="hover:bg-gray-100">
-                            <td class="py-2 px-4 border border-gray-200">{{ transferencia.timestamp|date:"d/m/Y H:i" }}</td>
-                            <td class="py-2 px-4 border border-gray-200">{{ transferencia.emisor.username }}</td>
-                            <td class="py-2 px-4 border border-gray-200">{{ transferencia.receptor.username }}</td>
-                            <td class="py-2 px-4 border border-gray-200 text-right">${{ transferencia.cantidad }}</td>
-                            <td class="py-2 px-4 border border-gray-200">{{ transferencia.motivo.titulo }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="5" class="py-4 text-center text-gray-500">
-                                No hay transferencias registradas.
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+    <main class="bg-[#E8E8E8] min-h-screen">
+        <div class="max-w-7xl mx-auto py-12 px-6 sm:px-12 ">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div class="px-6 py-4">
+                    <a href="{% url 'usuario:dashboard' %}" >
+                        <div class="flex gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                            </svg>
+
+                            <p class="text-slate-600 hover:underline font-semibold">Regresar</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-3xl font-semibold text-gray-800">Historial de Transferencia</h2>
+                </div>
+
+                <div class="overflow-x-auto px-6 py-4 ">
+                    <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Fecha</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Hora</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Cuenta Destino</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Referencia</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Saldo</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-800">Comprobante</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-300">
+                            {% for transferencia in transferencias %}
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ transferencia.fecha|date:"d-m-Y" }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ transferencia.fecha|date:"H:i:s" }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">
+                                        {% if transferencia.referencia_id %}
+                                            {{ transferencia.receptor }}
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ transferencia.referencia_id }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ transferencia.monto }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">
+                                        <a href="{% url 'transferencia:proof_transfer' pk=transferencia.referencia_id %}" class="btn btn-info btn-sm">
+                                            <div class="flex gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                                                </svg>
+                                                <p class="text-sm underline">ver detalle</p>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3" class="px-6 py-4 text-sm text-gray-500 text-center">No se encontraron ingresos registrados.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% include 'includes/paginator.html' %}
+                </div>
             </div>
         </div>
-
-    </body>
+    </main>
 {% endblock %}

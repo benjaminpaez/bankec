@@ -1,120 +1,73 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/layout_user.html' %}
 
-{% block title %}
-    Perfil
-{% endblock %}
+{% block title %}Perfil de Usuario{% endblock %}
 
 {% block content %}
-{#	<h1>Bienvenido a tu perfil {{ user.username }}.</h1>#}
-{#    <a href="{% url 'usuario:logout' %}">Cerrar sesion</a>#}
-{#    <form  method="post">#}
-{#        <button type="submit">Cerrar sesion</button>#}
-{#    </form>#}
-{#    <h1 class="text-2xl font-bold">Bienvenido, {{ user.first_name }}</h1>#}
-{#    <p>Saldo actual: <strong>${{ request.user.balance }}</strong></p>#}
-{##}
-{#    <a href="{% url 'usuario:cargar_dinero' %}">Cargar Dinero</a>#}
-{#    <a href="{% url 'transferencia:transfer' %}" class="btn btn-primary">Transferir dinero</a>#}
-{#    <a href="{% url 'transferencia:transfer_history' %}" class="btn btn-secondary">Historial</a>#}
+    <main class="container mx-auto my-16">
+            <a href="{% url 'usuario:dashboard' %}" >
+                <div class="flex gap-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                    </svg>
 
-    <body class="bg-gray-200 font-sans">
+                    <p class="text-slate-600 hover:underline font-semibold">Regresar</p>
+                </div>
+            </a>
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2">
+                <div class="relative">
+                    {% if user.avatar %}
+                        <img class="w-full h-96 object-cover" src="{{ user.avatar.url }}" alt="Profile Image">
+                    {% else %}
+                        <img class="w-full h-96 object-cover" src="{{ MEDIA_URL }}media/avatars/avatar_default.jpeg" alt="Default Profile Image">
+                    {% endif %}
+                    <div class="absolute bottom-0 left-0 right-0 bg-[#1b3030] text-center p-4">
+                        <h2 class="text-white text-xl font-normal font-onest">Hola, <span class="text-white text-2xl font-bold font-onest">{{ user.username }}</span></h2>
+                    </div>
+                </div>
 
-    <div class="flex min-h-screen">
+                <div class="p-8 flex flex-col justify-center font-onest">
+                    <p class="text-gray-600 text-lg mb-4">
+                        <span class="text-black  text-lg font-bold">Usuario:</span> 
+                        <span class="p-2">{{ user.username }}</span> 
+                    </p>
+                    <p class="text-gray-600 text-lg mb-4">
+                        <span class="text-black text-lg font-bold">Nombre:</span> 
+                        <span class="p-2">{{ user.first_name }}</span> 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        <span class="text-black text-lg font-bold">Apellido:</span> 
+                        <span class="p-2">{{ user.last_name }}</span> 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        <span class="text-black text-lg font-bold">Email:</span> 
+                        <span class="p-2">{{ user.email }}</span> 
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        <span class="text-black text-lg font-bold">Creado:</span> 
+                        <span class="p-2">{{ user.date_joined }}</span> 
+                    </p>
+        
+                    <p class="text-gray-600 mb-4">
+                        <span class="text-black text-lg font-bold">Tipo de usuario:</span> 
+                        <span class="p-2">{{ user.role}}</span> 
+                    </p>
+                  
+                    
+                    
+                    <p class="text-gray-600 mb-4">
+                        <span class="text-black text-lg font-bold">Ultimo ingreso:</span> {{ user.last_login }}
+                    </p>
 
-        <aside class="w-64 bg-blue-900 text-white flex flex-col">
-            <div class="py-4 px-6 text-center bg-blue-800">
-                <h1 class="text-2xl font-bold">Mi Cuenta</h1>
+                    <div class="flex justify-between mt-6">
+                        <a href="{% url 'usuario:editar_perfil' %}" class="px-3 py-2 text-sm font-medium text-center justify-between gap-2 inline-flex items-center text-white bg-blue-900 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-800 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                            Editar
+                        </a>
+                    </div>
+                </div>
             </div>
-            <nav class="flex-1 px-4 py-6">
-                <ul class="space-y-4">
-                    <li>
-                        <a href="{% url 'transferencia:transfer_history' %}" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
-                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                            </svg>
-                            Historial de Transferencias
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'transferencia:transfer_history' %}" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
-                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v2a2 2 0 002 2h2a2 2 0 002-2v-2m1-4H7a1 1 0 00-1 1v1a1 1 0 001 1h10a1 1 0 001-1v-1a1 1 0 00-1-1z" />
-                            </svg>
-                            Últimos Movimientos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-2 text-sm font-medium hover:bg-blue-700 rounded">
-                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4M7 6h10M7 10h6" />
-                            </svg>
-                            Configuración de Cuenta
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
 
-        <div class="flex-1 flex flex-col">
-            <!-- Header -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <h2 class="text-xl font-semibold text-gray-800">Panel de Usuario</h2>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-gray-600">Balance Actual: <strong>$ {{ user.balance }}</strong></span>
-                        <span class="text-gray-600">Cuenta: <strong>{{ user.username }}</strong></span>
-                        <a href="{% url 'usuario:logout' %}" class="px-4 py-2 bg-red-500 text-white text-sm rounded hover:bg-red-600">Cerrar Sesión</a>
-                    </div>
-                </div>
-            </header>
-
-            <main class="flex-1 bg-gray-50">
-                <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-medium text-gray-800">Resumen de la Cuenta</h3>
-                            <div class="space-x-4">
-                                <a href="{% url 'transferencia:transfer' %}" class="px-4 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">Transferir Dinero</a>
-                                <a href="{% url 'usuario:cargar_dinero' %}" class="px-4 py-2 bg-green-500 text-white text-sm rounded hover:bg-green-600">Ingresar Dinero</a>
-                            </div>
-                        </div>
-                        <div class="mt-4 text-gray-600">
-                            <p class="text-3xl text-bold ">$ {{ user.balance }}</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white shadow-md rounded-lg p-6">
-                        <h3 class="text-lg font-medium text-gray-800 mb-4">Últimos Movimientos</h3>
-                        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                        <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
-                            <thead class="bg-gray-200">
-                                <tr>
-                                    <th class="px-4 py-2 text-left">Fecha</th>
-                                    <th class="px-4 py-2 text-left">Tipo</th>
-                                    <th class="px-4 py-2 text-left">Monto</th>
-                                    <th class="px-4 py-2 text-left">Descripción</th>
-                                </tr>
-                            </thead>
-{#                            -----CORREGIR LISTA----#}
-                            <tbody>
-                                {% for movimiento in movimientos %}
-                                    <tr class="border-b hover:bg-gray-50">
-                                        <td class="px-4 py-2">{{ movimiento.fecha }}</td>
-                                        <td class="px-4 py-2">{{ movimiento.tipo }}</td>
-                                        <td class="px-4 py-2">
-                                            $ {{ movimiento.monto }}
-                                        </td>
-                                        <td class="px-4 py-2">{{ movimiento.descripcion }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-    </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-</body>
+    </main>
 {% endblock %}

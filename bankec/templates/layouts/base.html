@@ -1,15 +1,65 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
+    <link rel="icon" href="{% static 'media/img/logo.png' %}" type="image">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        nunito: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    <main>
-        {% block content %}
+<body class="bg-[#f9fafb] font-nunito">
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-blue-900 text-white flex flex-col">
+            {% if user.is_staff %}
+            	{% include 'includes/aside_admin.html' %}
+            {% else %}
+                {% include 'includes/aside_user.html' %}
+            {% endif %}
+        </aside>
+        <div class="flex-1 flex flex-col">
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-gray-800">{% block header_title %}{% endblock %}</h2>
+                    {% if user.is_staff %}
+                        <div class="flex items-center space-x-4">
+                            <span class="text-gray-600">
+                                <div class="flex gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                    </svg>
+                                    Administrador: <strong>{{ user.username }}</strong>
+                                </div>
+                            </span>
+                            {% include 'includes/buttons/close_account.html' %}
+                        </div>
+                    {% else %}
+                        <div class="flex items-center space-x-4">
+                            {% include 'includes/avatar_user.html' with src_img=user.avatar.url username=user.username f_name=user.first_name l_name=user.last_name %}
+                            {% include 'includes/buttons/close_account.html' %}
+                        </div>
 
-        {% endblock %}
-    </main>
+                    {% endif %}
+                </div>
+            </header>
+            <main class="flex-1 bg-gray-50">
+                {% block content %}
+                {% endblock %}
+            </main>
+        </div>
+    </div>
 </body>
 </html>

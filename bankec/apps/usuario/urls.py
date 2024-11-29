@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import *
-from apps.motivo.views import AdminMotivoView, NuevoMotivoView, EditarMotivoView, EliminarMotivoView
+from apps.motivo.views import MotivoViewList, MotivoViewNew, MotivoViewUpdate, MotivoViewDelete
 
 app_name = 'usuario'
 
@@ -11,25 +11,23 @@ urlpatterns = [
     path('logout/', LogoutFormView.as_view(), name='logout'),
     path('register/', RegisterFormView.as_view(), name='register'),
 
-    path('ingresar-dinero/', CargarDineroView.as_view(), name='cargar_dinero'),
-    path('historial-ingresos/', HistorialIngresosView.as_view(), name='historial_ingresos'),
+    path('perfil/', UserProfileView.as_view(), name='perfil'),
+    path('editar/', UserEditProfileView.as_view(), name='editar_perfil'),
 
-    # Admin dashboard
+    path('ingresar-dinero/', UserDepositMoneyForm.as_view(), name='cargar_dinero'),
+    path('historial/', UserHistoryMovView.as_view(), name='historial'),
+
+    # ruta admin
     path('admin/', DashboardAdminView.as_view(), name='admin_dashboard'),
     path('admin/users/', UserListView.as_view(), name='user_list'),
-    path('admin/users/<int:pk>/edit/', UserEditView.as_view(), name='user_edit'),
+    path('admin/users/<int:pk>/edit/', AdminUserEditView.as_view(), name='user_edit'),
+    path('admin/users/<int:user_id>/movimientos/', UserHistoryMovView.as_view(), name='admin_usuario_movimientos'),
 
-    # Motivos CRUD
-    path('admin/motivos/', AdminMotivoView.as_view(), name='motivo_list'),
-    path('admin/motivos/create/', NuevoMotivoView.as_view(), name='motivo_create'),
-    path('admin/motivos/<int:pk>/edit/', EditarMotivoView.as_view(), name='motivo_edit'),
-    path('admin/motivos/<int:pk>/delete/', EliminarMotivoView.as_view(), name='motivo_delete'),
+    # rutas motivos
+    path('admin/motivos/', MotivoViewList.as_view(), name='motivo_list'),
+    path('admin/motivos/create/', MotivoViewNew.as_view(), name='motivo_create'),
+    path('admin/motivos/<int:pk>/edit/', MotivoViewUpdate.as_view(), name='motivo_edit'),
+    path('admin/motivos/<int:pk>/delete/', MotivoViewDelete.as_view(), name='motivo_delete'),
 
-
-    # path('login/', views.user_login, name='login'),
-    # path('login/', auth_views.LoginView.as_view(), name='login'),
-    # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    # path('', views.dashboard, name='perfil'),
-    # path('logout/', views.user_login, name='login'),
 
 ]

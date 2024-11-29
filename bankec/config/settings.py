@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'apps.usuario',
     'apps.transferencia',
     'apps.motivo',
-    'apps.historial',
+    'apps.movimientos',
+    'apps.favoritos',
+    'widget_tweaks'
 ]
 AUTH_USER_MODEL = 'usuario.Usuario'
 
@@ -111,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-Ar'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
@@ -121,12 +123,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+MEDIA_ROOT ='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATIC_URL = 'static/'
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-LOGIN_REDIRECT_URL = 'usuario_perfil.html'
+LOGIN_REDIRECT_URL = 'usuario_dashboard.html'
 LOGOUT_REDIRECT_URL = '/usuario/login.html'
 LOGIN_URL = 'auth/login.html'
 LOGOUT_URL = 'auth/logout.html'

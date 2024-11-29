@@ -1,31 +1,35 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/layout_index.html' %}
+{% load static %}
+
 {% block title %}
     Inicio sesion
 {% endblock %}
-
 {% block content %}
-{#    <h1 class="text-5xl bg-red-400">Bienvenido a Bankec</h1>#}
-{#    <a href="{% url 'usuario:login' %}">Iniciar sesion</a>#}
-{#    <a href="{% url 'usuario:register' %}">Registrarse</a>#}
 
-    <body class="bg-gray-200 text-gray-800">
-        <!-- Header -->
-        <header class="bg-blue-600 text-white py-4 px-6 flex justify-between items-center">
-            <h1 class="text-lg font-bold">Bankec</h1>
+    <main class="bg-gradient-to-b from-[#041562] to-[#11468F] text-gray-800 h-screen flex flex-col">
+        {% include 'includes/common/header.html' %}
 
-            <a href="{% url 'usuario:register' %}" class="px-4 py-2 bg-gray-700 hover:bg-gray-800 rounded-lg text-sm font-medium">Registrarse</a>
-        </header>
+        <div class="flex-grow flex items-center justify-center max-w-screen-xl px-8 xl:px-16 mx-auto">
+            <div class="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 w-full">
+                <div class="flex justify-center items-center">
+                    <img src="{{ MEDIA_URL }}img/fondo.png" alt="fondo" class="w-full h-auto max-h-120 object-contain" />
+                </div>
 
-        <main class="flex flex-col items-center justify-center min-h-screen">
-            <h1 class="text-5xl font-extrabold text-gray-900 mb-4">BANKEC</h1>
-            <p class="text-lg text-gray-700 mb-6 text-center max-w-2xl">
-                Bankec es una aplicación que simula ser un banco, permitiéndote gestionar tus transferencias, ingresos y mucho más de forma simple y segura.
-            </p>
-            <a href="{% url 'usuario:login' %}"
-               class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-lg shadow-lg">
-                Inicia Sesión
-            </a>
-        </main>
-    </body>
+                <div class="flex flex-col justify-center items-start text-center sm:text-left">
+                    <h1 class="text-3xl lg:text-4xl xl:text-5xl font-medium text-[#7AB2D3] leading-normal">
+                        La forma más fácil de <strong>manejar tu dinero</strong>, estés donde estés.
+                    </h1>
+                    <p class="text-[#DFF2EB] mt-4 mb-6">
+                        Hacer transferencias, controlar tus movimientos y gestionar tus favoritos nunca fue tan sencillo.
+                    </p>
+                    {% if not user.is_authenticated %}
+                        {% include 'includes/buttons/register.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% include 'includes/common/footer.html' %}
+    </main>
 
 {% endblock %}

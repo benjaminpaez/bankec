@@ -1,0 +1,14 @@
+{% extends 'layouts/layout_user.html' %}
+
+{% block title %}
+	agregar favoritos
+{% endblock %}
+
+{% block content %}
+	<h1>Agregar Usuario a Favoritos</h1>
+    <p>¿Deseas agregar este usuario a tus favoritos?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Agregar</button>
+    </form>
+{% endblock %}

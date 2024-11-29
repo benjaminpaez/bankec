@@ -1,21 +1,17 @@
-{% extends 'layouts/base.html' %}
-
+{% extends 'layouts/layout_auth.html' %}
 {% block title %}
-    Registrar
+    Crear cuenta
 {% endblock %}
 
+{% block url_img %}
+    <img src="{{ MEDIA_URL }}/img/register.jpeg"  alt="registro" class="object-cover rounded-t-lg md:rounded-l-lg h-full w-full " />
+{% endblock url_img%}
+
+
 {% block content %}
-
-{#    <h1>Registrar</h1>#}
-{#    <form method="post" class="bg-red-200"> {% csrf_token %}#}
-{#            {{ form.as_p }}#}
-{#        <button type="submit">Registrarse</button>#}
-{#    </form>#}
-{#    <a href="{% url 'home' %}">Volver al inicio</a>#}
-
     <body class="bg-gray-600 flex items-center justify-center h-screen">
         <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-            <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Crear una Cuenta</h2>
+            <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Crear cuenta</h2>
             <form method="post" class="space-y-6">
                 {% csrf_token %}
                 <div>
@@ -50,8 +46,10 @@
                 ¿Ya tienes cuenta?
                 <a href="{% url 'usuario:login' %}" class="text-blue-600 hover:underline">Inicia Sesión</a>
             </p>
+            <div class="mt-6 text-sm text-center text-gray-600">
+                <a href="{% url 'home' %}" class="underline text-normal text-black py-8">Regresar a inicio</a>
+            </div>
         </div>
     </body>
-        <a href="{% url 'home' %}" class="underline text-normal text-white py-8">Regresar a inicio</a>
 
 {% endblock %}

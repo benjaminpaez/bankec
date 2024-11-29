@@ -1,0 +1,44 @@
+{% if is_paginated %}
+    <div class="mt-6">
+        <div class="flex justify-center">
+            <nav class="inline-flex rounded-md shadow-sm">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="py-2 px-4 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100">
+                        Primero
+                    </a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="py-2 px-4 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">
+                        Anterior
+                    </a>
+                {% else %}
+                    <span class="py-2 px-4 text-sm font-medium text-gray-300 bg-white border border-gray-300 rounded-l-lg">
+                        Primero
+                    </span>
+                    <span class="py-2 px-4 text-sm font-medium text-gray-300 bg-white border border-gray-300">
+                        Anterior
+                    </span>
+                {% endif %}
+
+                <span class="py-2 px-4 text-sm font-medium text-gray-700 bg-white border-t border-b border-gray-300">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="py-2 px-4 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">
+                        Siguiente
+                    </a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="py-2 px-4 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100">
+                        Último
+                    </a>
+                {% else %}
+                    <span class="py-2 px-4 text-sm font-medium text-gray-300 bg-white border border-gray-300">
+                        Siguiente
+                    </span>
+                    <span class="py-2 px-4 text-sm font-medium text-gray-300 bg-white border border-gray-300 rounded-r-lg">
+                        Último
+                    </span>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+
+{% endif %}

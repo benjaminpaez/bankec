@@ -1,0 +1,7 @@
+<a href="{% url 'usuario:perfil' %}" class="flex items-center gap-2">
+    <img class="w-10 h-10 rounded-full" src="{{ src_img }}" alt="perfil">
+    <div class="font-medium dark:text-black">
+        <div>@ {{ username }}</div>
+        <div class="text-sm text-gray-500 dark:text-gray-400">{{ f_name }} {{ l_name }}</div>
+    </div>
+</a>
