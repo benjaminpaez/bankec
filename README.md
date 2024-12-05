@@ -1,6 +1,7 @@
 # **BANKEC**
 
 ## **Descripción del Proyecto**
+
 El nombre BankEc es una combinacion entre la palabra banco (en ingles), y las dos primeras letras de la empresa Ecom. 
 Es una aplicación web desarrollada en **Django** para gestionar el intercambio de dinero entre usuarios. Ofrece una experiencia fluida y segura para realizar transferencias, gestionar cuentas y visualizar historiales financieros. Está diseñado para manejar tres tipos de usuarios:
 
